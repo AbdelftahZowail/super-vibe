@@ -30,6 +30,16 @@ Then use the slash commands:
 - `/vibe <task>` — orchestrate a build.
 - `/vibe-push <what to ship>` — prepare and perform a release.
 
+## Part of a small ecosystem
+
+| Repo | What it is |
+| --- | --- |
+| **super-vibe** (this) | The *method* for big work — Build and Ship. Portable; bring your own tooling. |
+| [**brother-agent**](https://github.com/AbdelftahZowail/brother-agent) | A reference parallel-worker for OpenCode v2 (the tool the Build mode refers to). |
+| [**opencode-webui**](https://github.com/AbdelftahZowail/opencode-webui) | A web frontend for the OpenCode v2 engine. |
+
+They compose but stand alone.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
