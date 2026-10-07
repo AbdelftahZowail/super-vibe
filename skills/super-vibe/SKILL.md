@@ -80,6 +80,27 @@ OUTPUT:   findings + evidence. Do not rewrite the code.
   the actual diff and the actual checks.
 - **Never proceed with unresolved BLOCKING findings.**
 
+### Testing: prefer end-to-end (scale it to the change)
+
+Unit tests aren't enough. Ask what a **real user actually does**, then verify that.
+Match the test to the change:
+
+| Change | Test |
+| --- | --- |
+| Tiny / cosmetic / one-liner | None needed — don't invent busywork. |
+| Medium (a focused feature or fix) | Simple tests, or a small end-to-end pass if it's cheap. |
+| Big / user-facing / risky (touches a real flow, API, auth, money, data) | **Real end-to-end**: drive the feature the way a user would and check the result. |
+
+- **Treat e2e seriously** — it's the user's own path. Actually run it and look at
+  the outcome (render it, hit the endpoint, watch the real flow), don't just assert
+  it exists.
+- **No obvious e2e path?** Look for the simplest workable one first (existing
+  harness, a script, a real browser/CLI run). Keep it plain — no new framework
+  for its own sake.
+- **If it's genuinely hard or costly**, say so and bring the user into the call
+  instead of guessing or skipping silently.
+- More scope → more e2e. Small change → stay small.
+
 ### Commit & evidence discipline
 
 - Split commits **by workstream**; if files genuinely mix workstreams, one
@@ -133,7 +154,7 @@ overridden only where the user asked.
 Wrap-up: all workers finished or stopped, every report accounted for · diffs
 reviewed against requirements and the ownership map · cross-file integration
 wired by the orchestrator · gates run with recorded results · uncommitted work
-intact and no stray commits · concise user report delivered.
+intact and no stray commits · testing scaled to the change and any needed end-to-end run **executed, not just authored** · concise user report delivered.
 
 ## Ship
 
@@ -180,6 +201,6 @@ the actual repo state.
 
 Checklist: recon done against the repo, not memory · scope explicit and foreign /
 uncommitted work untouched · adversarial verification done, BLOCKING findings
-resolved and re-verified · gates run fresh with evidence · commits follow repo
+resolved and re-verified · gates run fresh with evidence · testing scaled to the change, end-to-end exercised for the real user path where it matters · commits follow repo
 conventions with no foreign files · tag/push/publish done and **verified to have
 landed** · helper doc read and updated · user report delivered.
